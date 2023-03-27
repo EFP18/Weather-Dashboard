@@ -20,26 +20,38 @@
 <body>
 
   <!-- initial page without the city selected -->
-<nav class= "navbar sticky-top">
-  <h1  >
+<nav class= "sticky-top bg-primary py-4 text-center ">
+  <h1 class = "fs-1">
     Weather Dashboard
   </h1>
 </nav>
 
 <main> 
 
-  <aside > 
-    <h2 class="bd-sidebar">
-      Search for a City: (thats my fetch button)
-    </h2>
+  <aside class="mt-4 bd-sidebar"> 
+    <div class="">
+      <!-- (thats my fetch button) -->
+      <!-- <form action="/action_page.php">
+        <label for="city">Search for a City:</label><br>
+        <input type="text" id="city" name="city" placeholder="New York"><br><br>
+        <input type="submit" value="Search" id="fetch-button">
+      </form> -->
+
+      <div class="card-body-custom card-body col-3 col-sm-12">
+        <h5 class="searchCity card-title fs-1">Search for a City:</h5>
+        <input type="text" id="city" name="city" placeholder="New York"><br><br>
+
+        <!-- media query to align center when smaller screen -->
+        <button type="button" class="btn btn-primary fs-3" id="fetch-button">Search</button>
+      </div>
+
+    </div>
+    <div>Suggestion cities?</div>
   </aside>
 
   <section>
-    <div>
-      Dynamically each city when click Search 
-      <!-- 3 <p> for temp wind humidity. choose that data-->
-    </div>
-    <div> 5 day forecast </div>
+    <div id="temperatureInfo"></div>
+    <div id="5DayForecast"></div>
   </section>
 </main>
 
@@ -49,6 +61,6 @@
 
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script>src="script.js"</script>
+  <script src="assets/script.js"></script>
 </body>
 </html>

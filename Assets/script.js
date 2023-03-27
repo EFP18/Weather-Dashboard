@@ -1,0 +1,158 @@
+// PSEUDO CODE
+
+// EVENT LISTENER: 
+// WHEN CLICK SEARCH --> PULL THE DATA FROM THE API
+// THEN CREATE AN h3 WITH THE CITY AND DATE(USE DAYJS??)
+// AND AT THE SAME TIME A 5DAY FORECAST
+
+// LOCAL STORAGE
+// WHEN THEY CLICK SEARCH, SAVE ON LOCAL STORAGE
+// CREATE LIST OF 10 LAST CITIES SEARCHED BENEATH THE SEARCH FIELD 
+
+var APIKey = "4bb3d6e851c881345956032e1b574e1a"
+// console.log(city)
+var fetchButton = $("#fetch-button")
+var temperatureInfo = $("#temperatureInfo")
+var fiveDayForecast = $("#5DayForecast")
+
+
+function getApi(city){
+  var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
+  // var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,us&cnt=1&appid=4bb3d6e851c881345956032e1b574e1a&units=imperial';
+
+  console.log(city)
+  fetch (requestUrl)
+    .then(function (response){
+      return response.json();
+    })
+    .then (function(data){
+      console.log(data);
+
+    for (var i=3; i<data.list.length-36; i++) {
+      console.log(data.list[i])
+      // 9am -every 3 hours 
+        // create my elements
+        var cityName = $("<h3>");
+        var temperature = $("<p>")
+        var wind = $("<p>")
+        var humidity = $("<p>")
+
+        // add text content to them
+        cityName.text(city)
+        temperature.text(data.list[i].main.temp)
+        wind.text(data.list[i].wind.speed)
+        humidity.text(data.list[i].main.humidity)
+
+        // append dynamically generated html to the screen
+        temperatureInfo.append(cityName)
+        temperatureInfo.append(temperature)
+        temperatureInfo.append(wind)
+        temperatureInfo.append(humidity)
+
+      }
+
+    })
+
+  }
+
+  function forecast(city){
+    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
+
+    console.log(city)
+    fetch (requestUrl)
+      .then(function (response){
+        return response.json();
+      })
+      .then (function(data){
+        console.log(data);
+  
+      for (var i=3; i<data.list.length; i+=8) {
+        // since it's a 3-hour forecast, i=+8 is going to be 24 hours later if i=3
+        console.log(data.list[i])
+        // 9am -every 3 hours 
+          // create my elements
+          var cityName = $("<h4>");
+          var temperature = $("<p>")
+          var wind = $("<p>")
+          var humidity = $("<p>")
+
+          var forecastCard = $("<div>").addClass("cardStyle")
+          fiveDayForecast.attr("class", "d-flex justify-content-evenly align-items-center")
+          // add text content to them
+          cityName.text(city)
+          temperature.text(data.list[i].main.temp)
+          wind.text(data.list[i].wind.speed)
+          humidity.text(data.list[i].main.humidity)
+  
+          // append dynamically generated html to the screen
+          forecastCard.append(cityName,temperature, wind, humidity)
+          fiveDayForecast.append(forecastCard)
+  
+        }
+  
+      })
+  
+    }
+
+  // async function getApi() {
+  //   var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,us&cnt=1&appid=4bb3d6e851c881345956032e1b574e1a&units=imperial';
+  //   var response = await fetch(requestUrl);
+  //   var data = await response.json();
+  //   console.log(data);
+  // }
+
+
+
+
+
+
+
+      // temp wind humidity 
+
+      // for (var i=0; i<data.length; i++) {
+      //   // create my elements
+      //   var cityName = $("<h3>");
+      //   var temperature = $("<p>")
+      //   var wind = $("<p>")
+      //   var humidity = $("<p>")
+
+      //   // add text content to them
+      //   cityName.text(city)
+      //   temperature.text()
+      //   wind.text()
+      //   humidity.text()
+
+      //   // append dynamically generated html to the screen
+      //   temperatureInfo.append(cityName)
+      //   temperatureInfo.append(temperature)
+      //   temperatureInfo.append(wind)
+      //   temperatureInfo.append(humidity)
+
+      // }
+
+      // // 5day forecast
+      // for (var i=0; i<data.length; i++) {
+      //   var fiveDayForecast = $("<div>");
+      //   for (var j=0; j<5; j++){
+      //     var dayForecast = $("<p>")
+      //     // dayForecast.text
+      //     // fiveDayForecast.append(dayForecast)
+      //   }
+      // }
+
+    // })
+//     // .catch (function(err){
+//     //   alert("Fetch Error: ", err)
+//     // });
+// }
+
+
+fetchButton.on("click", function(){
+  var city = $("#city").val();
+  getApi(city);
+  forecast(city);
+});
+
+
+
+// https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys

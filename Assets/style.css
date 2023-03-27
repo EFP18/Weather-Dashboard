@@ -1,0 +1,19 @@
+@media screen and (max-width: 586px){
+  .card-body-custom{  
+    display: flex;
+    /* flex-wrap: wrap; */
+    text-align: center;
+    width: 100%;
+  }
+
+  .searchCity{
+    white-space:nowrap !important;
+
+  }
+}
+
+.cardStyle {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-around;
+}
