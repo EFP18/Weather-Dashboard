@@ -1,10 +1,10 @@
 @media screen and (max-width: 586px){
-  .card-body-custom{  
+  /* .card-body-custom{  
     display: flex;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     text-align: center;
     width: 100%;
-  }
+  } */
 
   .searchCity{
     white-space:nowrap !important;

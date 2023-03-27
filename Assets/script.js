@@ -20,6 +20,9 @@ function getApi(city){
   var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
   // var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,us&cnt=1&appid=4bb3d6e851c881345956032e1b574e1a&units=imperial';
 
+  // var today = dayjs();
+  // var currentDate = $("#temperatureInfo").text(today.format("MMM D, YYYY"))
+
   console.log(city)
   fetch (requestUrl)
     .then(function (response){
@@ -38,10 +41,11 @@ function getApi(city){
         var humidity = $("<p>")
 
         // add text content to them
+        // cityName.text(city + " " + currentDate)
         cityName.text(city)
-        temperature.text(data.list[i].main.temp)
-        wind.text(data.list[i].wind.speed)
-        humidity.text(data.list[i].main.humidity)
+        temperature.text("Temperature: " + data.list[i].main.temp + " Fahrenheit")
+        wind.text("Wind: " + data.list[i].wind.speed + " MPH")
+        humidity.text("Humidity: " + data.list[i].main.humidity + "%")
 
         // append dynamically generated html to the screen
         temperatureInfo.append(cityName)
@@ -57,6 +61,10 @@ function getApi(city){
 
   function forecast(city){
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
+    
+    var fiveDayText = $("#5dayText");
+    fiveDayText.text("5-Day Forecast")
+    fiveDayText.attr("class", "display-block")
 
     console.log(city)
     fetch (requestUrl)
@@ -65,7 +73,7 @@ function getApi(city){
       })
       .then (function(data){
         console.log(data);
-  
+      
       for (var i=3; i<data.list.length; i+=8) {
         // since it's a 3-hour forecast, i=+8 is going to be 24 hours later if i=3
         console.log(data.list[i])
@@ -78,11 +86,13 @@ function getApi(city){
 
           var forecastCard = $("<div>").addClass("cardStyle")
           fiveDayForecast.attr("class", "d-flex justify-content-evenly align-items-center")
+          
           // add text content to them
           cityName.text(city)
-          temperature.text(data.list[i].main.temp)
-          wind.text(data.list[i].wind.speed)
-          humidity.text(data.list[i].main.humidity)
+          // actually I want the date, not city
+          temperature.text("Temperature: " + data.list[i].main.temp + " Fahrenheit")
+          wind.text("Wind: " + data.list[i].wind.speed + " MPH")
+          humidity.text("Humidity: " + data.list[i].main.humidity + "%")
   
           // append dynamically generated html to the screen
           forecastCard.append(cityName,temperature, wind, humidity)
@@ -100,51 +110,6 @@ function getApi(city){
   //   var data = await response.json();
   //   console.log(data);
   // }
-
-
-
-
-
-
-
-      // temp wind humidity 
-
-      // for (var i=0; i<data.length; i++) {
-      //   // create my elements
-      //   var cityName = $("<h3>");
-      //   var temperature = $("<p>")
-      //   var wind = $("<p>")
-      //   var humidity = $("<p>")
-
-      //   // add text content to them
-      //   cityName.text(city)
-      //   temperature.text()
-      //   wind.text()
-      //   humidity.text()
-
-      //   // append dynamically generated html to the screen
-      //   temperatureInfo.append(cityName)
-      //   temperatureInfo.append(temperature)
-      //   temperatureInfo.append(wind)
-      //   temperatureInfo.append(humidity)
-
-      // }
-
-      // // 5day forecast
-      // for (var i=0; i<data.length; i++) {
-      //   var fiveDayForecast = $("<div>");
-      //   for (var j=0; j<5; j++){
-      //     var dayForecast = $("<p>")
-      //     // dayForecast.text
-      //     // fiveDayForecast.append(dayForecast)
-      //   }
-      // }
-
-    // })
-//     // .catch (function(err){
-//     //   alert("Fetch Error: ", err)
-//     // });
-// }
 
 
 fetchButton.on("click", function(){
