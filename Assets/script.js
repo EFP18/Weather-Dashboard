@@ -13,17 +13,24 @@ var APIKey = "4bb3d6e851c881345956032e1b574e1a"
 // console.log(city)
 var fetchButton = $("#fetch-button")
 var temperatureInfo = $("#temperatureInfo")
-var fiveDayForecast = $("#5DayForecast")
+var fiveDayForecast = $("#fiveDayForecast")
 
+
+
+function displayTime(){
+  var today = dayjs();
+  var dateTimeNav= $("#nav").text(today.format("dddd, MMMM D YYYY, h:mm:ss a")) 
+
+}
+setInterval(displayTime, 1000);
 
 function getApi(city){
   var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
   // var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,us&cnt=1&appid=4bb3d6e851c881345956032e1b574e1a&units=imperial';
 
-  // var today = dayjs();
+  var today = dayjs().format("MMM D, YYYY")
   // var currentDate = $("#temperatureInfo").text(today.format("MMM D, YYYY"))
 
-  console.log(city)
   fetch (requestUrl)
     .then(function (response){
       return response.json();
@@ -42,8 +49,8 @@ function getApi(city){
 
         // add text content to them
         // cityName.text(city + " " + currentDate)
-        cityName.text(city)
-        temperature.text("Temperature: " + data.list[i].main.temp + " Fahrenheit")
+        cityName.text(city + " (" + today + ")")
+        temperature.text("Temperature: " + data.list[i].main.temp + " F")
         wind.text("Wind: " + data.list[i].wind.speed + " MPH")
         humidity.text("Humidity: " + data.list[i].main.humidity + "%")
 
@@ -53,8 +60,15 @@ function getApi(city){
         temperatureInfo.append(wind)
         temperatureInfo.append(humidity)
 
-      }
+        var temperatureInt = parseInt(temperature);
+        if (temperatureInt > 70 ) {
+          $("<div>").addClass("logo-image")
+          $("<img>").addClass("img.fluid")
+          
 
+        }
+      }
+      
     })
 
   }
@@ -62,9 +76,13 @@ function getApi(city){
   function forecast(city){
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
     
-    var fiveDayText = $("#5dayText");
+    // var fiveDayText = $("#fiveDayText");
+    var titleForecast = $("#title-forecast")
+    var fiveDayText = $("<h3>")
     fiveDayText.text("5-Day Forecast")
-    fiveDayText.attr("class", "display-block")
+    // fiveDayForecast.attr("class", "align-text-end")
+    titleForecast.append(fiveDayText)
+    // fiveDayText.attr("class", "display-block")
 
     console.log(city)
     fetch (requestUrl)
@@ -79,7 +97,7 @@ function getApi(city){
         console.log(data.list[i])
         // 9am -every 3 hours 
           // create my elements
-          var cityName = $("<h4>");
+          var dateTemp = $("<h4>");
           var temperature = $("<p>")
           var wind = $("<p>")
           var humidity = $("<p>")
@@ -88,18 +106,20 @@ function getApi(city){
           fiveDayForecast.attr("class", "d-flex justify-content-evenly align-items-center")
           
           // add text content to them
-          cityName.text(city)
+          dateTemp.text(data.list[i].dt_txt)
           // actually I want the date, not city
-          temperature.text("Temperature: " + data.list[i].main.temp + " Fahrenheit")
+          temperature.text("Temperature: " + data.list[i].main.temp + " F")
           wind.text("Wind: " + data.list[i].wind.speed + " MPH")
           humidity.text("Humidity: " + data.list[i].main.humidity + "%")
   
           // append dynamically generated html to the screen
-          forecastCard.append(cityName,temperature, wind, humidity)
+          forecastCard.append(dateTemp, temperature, wind, humidity)
           fiveDayForecast.append(forecastCard)
+
+          forecastCard.attr("class", "bg-primary p-2")
   
         }
-  
+        
       })
   
     }
@@ -112,12 +132,29 @@ function getApi(city){
   // }
 
 
-fetchButton.on("click", function(){
+fetchButton.on("click", function(event){
+  event.preventDefault();
+
   var city = $("#city").val();
   getApi(city);
   forecast(city);
+
+  
+  var searchHistory = {
+    city: city 
+  }
+
+  var cityHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+
+  localStorage.setItem("searchHistory", JSON.stringify("searchHistory"));
+  // renderHistory();
 });
 
+function renderHistory() {
+
+
+}
 
 
 // https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys

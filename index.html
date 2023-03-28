@@ -25,45 +25,46 @@
 
   <!-- initial page without the city selected -->
 <nav class= "sticky-top bg-primary py-4 text-center ">
-  <h1 class = "fs-1">
+  <h1 class = "fs-1 navbar-brand" href="/">
     Weather Dashboard
+    <div class = "logo-image" style="display: inline">
+      <img src="./Assets/sunny.png" class="img-fluid">
+    </div>
+    
+    <div id="nav"></div>
   </h1>
 </nav>
 
 <main> 
 
-  <aside class="mt-4 bd-sidebar"> 
-    <div class="card">
+  <section class="mt-4"> 
       <!-- (thats my fetch button) -->
       <!-- <form action="/action_page.php">
         <label for="city">Search for a City:</label><br>
         <input type="text" id="city" name="city" placeholder="New York"><br><br>
         <input type="submit" value="Search" id="fetch-button">
       </form> -->
+      <div class = "row">
+        <div class="card-body-custom card-body col-3 ps-5">
+          <h5 class="searchCity card-title fs-1">Search for a City:</h5>
+          <input type="text" id="city" name="city" placeholder="New York"><br><br>
 
-      <div class="card-body-custom card-body col-3 col-sm-12">
-        <h5 class="searchCity card-title fs-1">Search for a City:</h5>
-        <input type="text" id="city" name="city" placeholder="New York"><br><br>
+          <!-- media query to align center when smaller screen -->
+          <button type="button" class="btn btn-primary fs-3" id="fetch-button">Search</button>
+        </div>
 
-        <!-- media query to align center when smaller screen -->
-        <button type="button" class="btn btn-primary fs-3" id="fetch-button">Search</button>
+        <div id="temperatureInfo" class = "col-7 border border-primary pe-5"></div>
       </div>
 
-    </div>
-    <div>Suggestion cities?</div>
-  </aside>
+      <div id="title-forecast" class = "text-center"></div>
+      <div id="fiveDayForecast" class=""></div>
 
-  <section>
-    <div id="temperatureInfo"></div>
-    <div id="5DayForecast">
-      <h3 id="5dayText"></h3>
-    </div>
+
+    <!-- <div>Suggestion cities?</div> -->
   </section>
+
+
 </main>
-
-
-
-
 
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

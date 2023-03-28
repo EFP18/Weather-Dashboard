@@ -1,4 +1,4 @@
-@media screen and (max-width: 586px){
+/* @media screen and (max-width: 586px){ */
   /* .card-body-custom{  
     display: flex;
     flex-wrap: wrap;
@@ -6,14 +6,17 @@
     width: 100%;
   } */
 
-  .searchCity{
+  /* .searchCity{
     white-space:nowrap !important;
 
   }
-}
+} */
 
-.cardStyle {
-  display: flex;
-  /* align-items: center; */
+/* .cardStyle {
+  align-items: center;
   justify-content: space-around;
 }
+
+#fiveDayForecast {
+  justify-content: space-around!important;
+} */
