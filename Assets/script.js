@@ -26,10 +26,8 @@ setInterval(displayTime, 1000);
 
 function getApi(city){
   var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
-  // var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,us&cnt=1&appid=4bb3d6e851c881345956032e1b574e1a&units=imperial';
 
   var today = dayjs().format("MMM D, YYYY")
-  // var currentDate = $("#temperatureInfo").text(today.format("MMM D, YYYY"))
 
   fetch (requestUrl)
     .then(function (response){
@@ -39,7 +37,6 @@ function getApi(city){
       console.log(data);
 
     for (var i=3; i<data.list.length-36; i++) {
-      console.log(data.list[i])
       // 9am -every 3 hours 
         // create my elements
         var cityName = $("<h3>");
@@ -48,7 +45,6 @@ function getApi(city){
         var humidity = $("<p>")
 
         // add text content to them
-        // cityName.text(city + " " + currentDate)
         cityName.text(city + " (" + today + ")")
         temperature.text("Temperature: " + data.list[i].main.temp + " F")
         wind.text("Wind: " + data.list[i].wind.speed + " MPH")
@@ -92,69 +88,76 @@ function getApi(city){
       .then (function(data){
         console.log(data);
       
-      for (var i=3; i<data.list.length; i+=8) {
-        // since it's a 3-hour forecast, i=+8 is going to be 24 hours later if i=3
-        console.log(data.list[i])
-        // 9am -every 3 hours 
-          // create my elements
-          var dateTemp = $("<h4>");
-          var temperature = $("<p>")
-          var wind = $("<p>")
-          var humidity = $("<p>")
+        for (var i=3; i<data.list.length; i+=8) {
+          // since it's a 3-hour forecast, i=+8 is going to be 24 hours later if i=3
+          console.log(data.list[i])
+          // 9am -every 3 hours 
+            // create my elements
+            var dateTemp = $("<h4>");
+            var temperature = $("<p>")
+            var wind = $("<p>")
+            var humidity = $("<p>")
+            var iconWeather = $("#iconWeather")
+            var imgId = $("#imgId")
+            
+            // var icon = $("<p>")
+            var icon = data.list[i].weather[0].icon
+            console.log(icon)
+            var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+            $('#imgId').attr('src', iconUrl);
 
-          var forecastCard = $("<div>").addClass("cardStyle")
-          fiveDayForecast.attr("class", "d-flex justify-content-evenly align-items-center")
-          
-          // add text content to them
-          dateTemp.text(data.list[i].dt_txt)
-          // actually I want the date, not city
-          temperature.text("Temperature: " + data.list[i].main.temp + " F")
-          wind.text("Wind: " + data.list[i].wind.speed + " MPH")
-          humidity.text("Humidity: " + data.list[i].main.humidity + "%")
-  
-          // append dynamically generated html to the screen
-          forecastCard.append(dateTemp, temperature, wind, humidity)
-          fiveDayForecast.append(forecastCard)
 
-          forecastCard.attr("class", "bg-primary p-2")
-  
-        }
+
+
+            var forecastCard = $("<div>").addClass("cardStyle")
+            fiveDayForecast.attr("class", "d-flex justify-content-evenly align-items-end text-white")
+            
+            // add text content to them
+            dateTemp.text(data.list[i].dt_txt)
+            // actually I want the date, not city
+            temperature.text("Temperature: " + data.list[i].main.temp + " F")
+            wind.text("Wind: " + data.list[i].wind.speed + " MPH")
+            humidity.text("Humidity: " + data.list[i].main.humidity + "%")
+            // icon.text(data.list[i].weather[0].icon)
+
+            
+
+
+
+            
+            // append dynamically generated html to the screen
+            forecastCard.append(dateTemp, temperature, wind, humidity, iconWeather)
+            fiveDayForecast.append(forecastCard)
+
+            forecastCard.attr("class", "bg-primary p-2")
+    
+
+            
+          }
         
-      })
+        })
   
-    }
-
-  // async function getApi() {
-  //   var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,us&cnt=1&appid=4bb3d6e851c881345956032e1b574e1a&units=imperial';
-  //   var response = await fetch(requestUrl);
-  //   var data = await response.json();
-  //   console.log(data);
-  // }
+  // how to clear info when function runs again?
+  }
 
 
 fetchButton.on("click", function(event){
   event.preventDefault();
+
+  // var mainEl = $("#main")
+  // mainEl.empty("")
 
   var city = $("#city").val();
   getApi(city);
   forecast(city);
 
   
-  var searchHistory = {
-    city: city 
-  }
 
-  var cityHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
-
-
-  localStorage.setItem("searchHistory", JSON.stringify("searchHistory"));
-  // renderHistory();
 });
 
-function renderHistory() {
-
-
-}
+// local storage????
+// clear double creation on click?
+// icon not showing every day 
 
 
 // https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
