@@ -1,22 +1,22 @@
-/* @media screen and (max-width: 586px){ */
-  /* .card-body-custom{  
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    width: 100%;
-  } */
+@media screen and (max-width: 586px){ 
+  .card-body-custom{  
+    display: flex !important;
+    flex-wrap: wrap !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
 
-  /* .searchCity{
+  .searchCity{
     white-space:nowrap !important;
 
-  }
-} */
+  } 
+}
 
-/* .cardStyle {
-  align-items: center;
-  justify-content: space-around;
+  .cardStyle {
+  align-items: center !important;
+  justify-content: space-around !important;
 }
 
 #fiveDayForecast {
-  justify-content: space-around!important;
-} */
+  justify-content: space-around !important;
+}

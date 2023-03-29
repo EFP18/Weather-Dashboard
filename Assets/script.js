@@ -66,11 +66,15 @@ function getApi(city){
         }
 
         // Weather icons
-            var imgIdTop = $("#imgIdTop")
-            var icon = data.list[i].weather[0].icon
-            var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
-            $('#imgIdTop').attr('src', iconUrl);
-            cityName.append(imgIdTop)
+        // var iconOnScreen = $("<p>")
+        var imgIdTop = $("#imgIdTop")
+        var icon = data.list[i].weather[0].icon
+        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+        $('#imgIdTop').attr('src', iconUrl);
+        cityName.append(imgIdTop)
+            
+
+          
             console.log(iconUrl)
 
       }
@@ -156,9 +160,32 @@ fetchButton.on("click", function(event){
   getApi(city);
   forecast(city);
 
-  
+  var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
+
+  localStorageCitiesArr.push(city);
+
+  localStorage.setItem("citiesArr", JSON.stringify(localStorageCitiesArr));
+
+  retrieveCities();
 
 });
+
+function retrieveCities() {
+  var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
+
+  localStorageCitiesArr.forEach(function(city) {
+    console.log(city);
+  });
+
+};
+
+retrieveCities();
+
+// On click, save the city value on local storage
+// create buttons that they can click
+// event listener on those buttons that lead to the beginning of the other function
+// as if the input was that city 
+
 
 // local storage????
 // icon not showing every day 
