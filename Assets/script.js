@@ -63,8 +63,16 @@ function getApi(city){
           $("<div>").addClass("logo-image")
           $("<img>").addClass("img.fluid")
           
-
         }
+
+        // Weather icons
+            var imgIdTop = $("#imgIdTop")
+            var icon = data.list[i].weather[0].icon
+            var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+            $('#imgIdTop').attr('src', iconUrl);
+            cityName.append(imgIdTop)
+            console.log(iconUrl)
+
       }
       
     })
@@ -95,21 +103,21 @@ function getApi(city){
           // since it's a 3-hour forecast, i=+8 is going to be 24 hours later if i=3
           console.log(data.list[i])
           // 9am -every 3 hours 
+
             // create my elements
             var dateTemp = $("<h4>");
             var temperature = $("<p>")
             var wind = $("<p>")
             var humidity = $("<p>")
+          
+
+            // Weather Icons
             var iconWeather = $("#iconWeather")
             var imgId = $("#imgId")
-            
-            // var icon = $("<p>")
+
             var icon = data.list[i].weather[0].icon
-            console.log(icon)
             var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
-            $('#imgId').attr('src', iconUrl);
-
-
+            $("#imgId").attr("src", iconUrl);
 
 
             var forecastCard = $("<div>").addClass("cardStyle")
@@ -124,24 +132,21 @@ function getApi(city){
             // icon.text(data.list[i].weather[0].icon)
             
             // append dynamically generated html to the screen
-            forecastCard.append(dateTemp, temperature, wind, humidity, iconWeather)
+            forecastCard.append(dateTemp, temperature, wind, humidity, icon, iconWeather)
             fiveDayForecast.append(forecastCard)
 
             forecastCard.attr("class", "bg-primary p-2")
-            
           }
-
-
         })
   
 
-  // how to clear info when function runs again?
   }
 
 
 fetchButton.on("click", function(event){
   event.preventDefault();
-
+  
+  // Clear content when button is pressed again
   temperatureInfo.html(" ");
   fiveDayForecast.html(" ");
   titleForecast.html(" ")
@@ -156,7 +161,6 @@ fetchButton.on("click", function(event){
 });
 
 // local storage????
-// clear double creation on click?
 // icon not showing every day 
 
 
