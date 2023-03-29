@@ -14,6 +14,8 @@ var APIKey = "4bb3d6e851c881345956032e1b574e1a"
 var fetchButton = $("#fetch-button")
 var temperatureInfo = $("#temperatureInfo")
 var fiveDayForecast = $("#fiveDayForecast")
+var titleForecast = $("#title-forecast")
+
 
 
 
@@ -70,15 +72,16 @@ function getApi(city){
   }
 
   function forecast(city){
+
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
     
-    // var fiveDayText = $("#fiveDayText");
-    var titleForecast = $("#title-forecast")
     var fiveDayText = $("<h3>")
+
     fiveDayText.text("5-Day Forecast")
     // fiveDayForecast.attr("class", "align-text-end")
     titleForecast.append(fiveDayText)
     // fiveDayText.attr("class", "display-block")
+
 
     console.log(city)
     fetch (requestUrl)
@@ -119,24 +122,19 @@ function getApi(city){
             wind.text("Wind: " + data.list[i].wind.speed + " MPH")
             humidity.text("Humidity: " + data.list[i].main.humidity + "%")
             // icon.text(data.list[i].weather[0].icon)
-
-            
-
-
-
             
             // append dynamically generated html to the screen
             forecastCard.append(dateTemp, temperature, wind, humidity, iconWeather)
             fiveDayForecast.append(forecastCard)
 
             forecastCard.attr("class", "bg-primary p-2")
-    
-
             
           }
-        
+
+
         })
   
+
   // how to clear info when function runs again?
   }
 
@@ -144,8 +142,10 @@ function getApi(city){
 fetchButton.on("click", function(event){
   event.preventDefault();
 
-  // var mainEl = $("#main")
-  // mainEl.empty("")
+  temperatureInfo.html(" ");
+  fiveDayForecast.html(" ");
+  titleForecast.html(" ")
+  
 
   var city = $("#city").val();
   getApi(city);
