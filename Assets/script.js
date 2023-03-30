@@ -171,44 +171,54 @@ fetchButton.on("click", function(event){
 
   localStorage.setItem("citiesArr", JSON.stringify(localStorageCitiesArr));
 
-  retrieveCities();
+  var searchHistoryDiv = $("#searchHistory")
+  var searchHistory = $("<button>")
+  searchHistory.text(city)
+  searchHistoryDiv.append(searchHistory)
+  console.log(searchHistory)
+  searchHistory.attr("class", "col-12")
 
-    
-    
-
+  
 });
 
 function retrieveCities() {
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
   // localStorageCitiesArr.forEach(function(city) {
-    // Search History Div
-    var searchHistoryDiv = $("#searchHistory")
-    // for (var i=0; i<localStorageCitiesArr.length; i++){
-    var searchHistory = $("<button>")
+    // for each was multiplying the buttons
+
+
+    // var searchHistoryDiv = $("#searchHistory")
+    // // for (var i=0; i<localStorageCitiesArr.length; i++){
+    //   var searchHistory = $("<button>")
+    //   // searchHistory.text(localStorageCitiesArr[i])
+    //   searchHistoryDiv.append(searchHistory)
+    // }
+
+    
     // searchHistory.text(city)
-    searchHistory.text(localStorageCitiesArr[localStorageCitiesArr.length -1])
+    // searchHistory.text(localStorageCitiesArr[localStorageCitiesArr.length -1])
+    // console.log(searchHistory)
 
-    searchHistoryDiv.append(searchHistory)
-    console.log(searchHistory)
-
-    searchHistory.on("click", function(event){
-    event.preventDefault();
-
-     // Clear content when button is pressed again
-    temperatureInfo.html(" ");
-    fiveDayForecast.html(" ");
-    titleForecast.html(" ")
   
-    // var city = $("#city").val();
 
-    var searchHistory = $("#searchHistory").val();
-    console.log(searchHistory)
-    console.log("hello")
+    // searchHistory.on("click", function(event){
+    // event.preventDefault();
 
-    // getApi(searchHistory);
-    // forecast(searchHistory);
-    })
+    // //  // Clear content when button is pressed again
+    // // temperatureInfo.html(" ");
+    // // fiveDayForecast.html(" ");
+    // // titleForecast.html(" ")
+  
+    // // var city = $("#city").val();
+
+    // var searchHistory = $("#searchHistory").val();
+    // console.log(searchHistory)
+    // console.log("hello")
+
+    // // getApi(searchHistory);
+    // // forecast(searchHistory);
+    // })
   // });
   
 // getting button multiple times
@@ -224,3 +234,8 @@ retrieveCities();
 
 
 // https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
+
+
+// Your logic with the forEach looks good on page initialization. So it creates all the buttons, hence why it looks correct when we refresh.
+
+// but if we remove the for each for the function logic, and just access the last index of the array using [array.length -1] we can use the function I posted to add in order.
