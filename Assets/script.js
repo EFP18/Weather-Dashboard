@@ -46,21 +46,13 @@ function getApi(city){
         temperatureInfo.append(wind)
         temperatureInfo.append(humidity)
 
-        var temperatureInt = parseInt(temperature);
-        if (temperatureInt > 70 ) {
-          $("<div>").addClass("logo-image")
-          $("<img>").addClass("img.fluid")
-          
-        }
-
+      
         // Weather icons
-        // var iconOnScreen = $("<p>")
         var iconTop = $("<p>")
-        var imgIdTop = $("#imgIdTop")
         var icon = data.list[i].weather[0].icon
         var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
-        $('#imgIdTop').attr('src', iconUrl);
-        iconTop.text(imgIdTop)
+        var imgIdTop = $("<img>").addClass("img-fluid").attr("src", iconUrl);
+        iconTop.append(imgIdTop)
         cityName.append(iconTop)
             
 
@@ -104,15 +96,13 @@ function getApi(city){
 
             // Weather Icons
             var iconForecast = $("<p>")
-            var imgId = $("#imgId")
-
+            // var imgId = $("#imgId")
             var icon = data.list[i].weather[0].icon
             var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
-            $("#imgId").attr("src", iconUrl);
-            iconForecast.text(imgId)
+            var imgId = $("<img>").addClass("img-fluid").attr("src", iconUrl);
+            // $("#imgId").attr("src", iconUrl);
+            iconForecast.append(imgId)
             
-
-
             var forecastCard = $("<div>").addClass("cardStyle")
             fiveDayForecast.attr("class", "d-flex align-items-end mb-3")
             
