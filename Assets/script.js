@@ -177,9 +177,16 @@ fetchButton.on("click", function(event){
   searchHistoryDiv.append(searchHistory)
   console.log(searchHistory)
   searchHistory.attr("class", "col-12")
+  // copied logic from retrieve cities function, removed calling it in here
+  // to fix the repetition of buttons 
+  // at the end of the button's event listener function we need to append the newly searched city to the search history element
+  // When the user clicks the search button, currently the retrieveCities function is invoked at the bottom
+  // The issue with this is that retrieveCities is currently being used to populate the search history with the local storage data
+  // However, we do not want that to happen every single time you click the search button, you only want it to happen on page load
+  // There is no need to do it after page load, because that will cause duplicates
 
-    
-    
+  
+
 
 });
 
@@ -187,42 +194,40 @@ function retrieveCities() {
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
   // localStorageCitiesArr.forEach(function(city) {
-    // for each was multiplying the buttons, so I created line 192 instead 
+    // for each was multiplying the buttons, so I created the for loop instead
     var searchHistoryDiv = $("#searchHistory")
     for (var i=0; i<localStorageCitiesArr.length; i++){
       var searchHistory = $("<button>")
       searchHistory.text(localStorageCitiesArr[i])
       searchHistoryDiv.append(searchHistory)
       searchHistory.attr("class", "col-12")
+
+      searchHistory.on("click", function(event){
+        event.preventDefault();
+    
+        //  // Clear content when button is pressed again
+        temperatureInfo.html(" ");
+        fiveDayForecast.html(" ");
+        titleForecast.html(" ");
+      
+    
+        var searchHistory = $(this).val();
+        console.log(searchHistory)
+        console.log("hello")
+    
+        getApi(searchHistory);
+        forecast(searchHistory);
+        })
+
     }
 
+    console.log(searchHistory)
+
+  
     
-    // searchHistory.text(city)
-    // searchHistory.text(localStorageCitiesArr[localStorageCitiesArr.length -1])
-    console.log(searchHistory)
-
-  
-
-    searchHistory.on("click", function(event){
-    event.preventDefault();
-
-    //  // Clear content when button is pressed again
-    // temperatureInfo.html(" ");
-    // fiveDayForecast.html(" ");
-    // titleForecast.html(" ")
-  
-    // var city = $("#city").val();
-
-    var searchHistory = $("#searchHistory").val();
-    console.log(searchHistory)
-    console.log("hello")
-
-    // getApi(searchHistory);
-    // forecast(searchHistory);
-    })
+    
   // });
   
-// getting button multiple times
 // whats the value
   // }
 
