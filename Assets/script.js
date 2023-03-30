@@ -181,13 +181,16 @@ fetchButton.on("click", function(event){
 function retrieveCities() {
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
-  localStorageCitiesArr.forEach(function(city) {
+  // localStorageCitiesArr.forEach(function(city) {
     // Search History Div
     var searchHistoryDiv = $("#searchHistory")
     // for (var i=0; i<localStorageCitiesArr.length; i++){
     var searchHistory = $("<button>")
-    searchHistory.text(city)
+    // searchHistory.text(city)
+    searchHistory.text(localStorageCitiesArr[localStorageCitiesArr.length -1])
+
     searchHistoryDiv.append(searchHistory)
+    console.log(searchHistory)
 
     searchHistory.on("click", function(event){
     event.preventDefault();
@@ -199,12 +202,14 @@ function retrieveCities() {
   
     // var city = $("#city").val();
 
-    var searchHistory = searchHistory.val();
+    var searchHistory = $("#searchHistory").val();
+    console.log(searchHistory)
+    console.log("hello")
 
-    getApi(searchHistory);
-    forecast(searchHistory);
+    // getApi(searchHistory);
+    // forecast(searchHistory);
     })
-  });
+  // });
   
 // getting button multiple times
 // whats the value
