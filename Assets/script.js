@@ -178,47 +178,48 @@ fetchButton.on("click", function(event){
   console.log(searchHistory)
   searchHistory.attr("class", "col-12")
 
-  
+    
+    
+
 });
 
 function retrieveCities() {
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
   // localStorageCitiesArr.forEach(function(city) {
-    // for each was multiplying the buttons
-
-
-    // var searchHistoryDiv = $("#searchHistory")
-    // // for (var i=0; i<localStorageCitiesArr.length; i++){
-    //   var searchHistory = $("<button>")
-    //   // searchHistory.text(localStorageCitiesArr[i])
-    //   searchHistoryDiv.append(searchHistory)
-    // }
+    // for each was multiplying the buttons, so I created line 192 instead 
+    var searchHistoryDiv = $("#searchHistory")
+    for (var i=0; i<localStorageCitiesArr.length; i++){
+      var searchHistory = $("<button>")
+      searchHistory.text(localStorageCitiesArr[i])
+      searchHistoryDiv.append(searchHistory)
+      searchHistory.attr("class", "col-12")
+    }
 
     
     // searchHistory.text(city)
     // searchHistory.text(localStorageCitiesArr[localStorageCitiesArr.length -1])
-    // console.log(searchHistory)
+    console.log(searchHistory)
 
   
 
-    // searchHistory.on("click", function(event){
-    // event.preventDefault();
+    searchHistory.on("click", function(event){
+    event.preventDefault();
 
-    // //  // Clear content when button is pressed again
-    // // temperatureInfo.html(" ");
-    // // fiveDayForecast.html(" ");
-    // // titleForecast.html(" ")
+    //  // Clear content when button is pressed again
+    // temperatureInfo.html(" ");
+    // fiveDayForecast.html(" ");
+    // titleForecast.html(" ")
   
-    // // var city = $("#city").val();
+    // var city = $("#city").val();
 
-    // var searchHistory = $("#searchHistory").val();
-    // console.log(searchHistory)
-    // console.log("hello")
+    var searchHistory = $("#searchHistory").val();
+    console.log(searchHistory)
+    console.log("hello")
 
-    // // getApi(searchHistory);
-    // // forecast(searchHistory);
-    // })
+    // getApi(searchHistory);
+    // forecast(searchHistory);
+    })
   // });
   
 // getting button multiple times
