@@ -1,13 +1,3 @@
-// PSEUDO CODE
-
-// EVENT LISTENER: 
-// WHEN CLICK SEARCH --> PULL THE DATA FROM THE API
-// THEN CREATE AN h3 WITH THE CITY AND DATE(USE DAYJS??)
-// AND AT THE SAME TIME A 5DAY FORECAST
-
-// LOCAL STORAGE
-// WHEN THEY CLICK SEARCH, SAVE ON LOCAL STORAGE
-// CREATE LIST OF 10 LAST CITIES SEARCHED BENEATH THE SEARCH FIELD 
 
 var APIKey = "4bb3d6e851c881345956032e1b574e1a"
 // console.log(city)
@@ -15,8 +5,6 @@ var fetchButton = $("#fetch-button")
 var temperatureInfo = $("#temperatureInfo")
 var fiveDayForecast = $("#fiveDayForecast")
 var titleForecast = $("#title-forecast")
-
-
 
 
 function displayTime(){
@@ -48,7 +36,7 @@ function getApi(city){
 
         // add text content to them
         cityName.text(city + " (" + today + ")")
-        temperature.text("Temperature: " + data.list[i].main.temp + " F")
+        temperature.text("Temp.: " + data.list[i].main.temp + " F")
         wind.text("Wind: " + data.list[i].wind.speed + " MPH")
         humidity.text("Humidity: " + data.list[i].main.humidity + "%")
 
@@ -91,7 +79,7 @@ function getApi(city){
     fiveDayText.text("5-Day Forecast")
     // fiveDayForecast.attr("class", "align-text-end")
     titleForecast.append(fiveDayText)
-    // fiveDayText.attr("class", "display-block")
+    fiveDayText.attr("class", "")
 
 
     console.log(city)
@@ -126,12 +114,12 @@ function getApi(city){
 
 
             var forecastCard = $("<div>").addClass("cardStyle")
-            fiveDayForecast.attr("class", "d-flex justify-content-evenly align-items-end text-white")
+            fiveDayForecast.attr("class", "d-flex align-items-end mb-3")
             
             // add text content to them
             dateTemp.text(data.list[i].dt_txt)
             // actually I want the date, not city
-            temperature.text("Temperature: " + data.list[i].main.temp + " F")
+            temperature.text("Temp.: " + data.list[i].main.temp + " F")
             wind.text("Wind: " + data.list[i].wind.speed + " MPH")
             humidity.text("Humidity: " + data.list[i].main.humidity + "%")
             // icon.text(data.list[i].weather[0].icon)
@@ -140,13 +128,9 @@ function getApi(city){
             forecastCard.append(dateTemp, iconForecast, temperature, wind, humidity)
             fiveDayForecast.append(forecastCard)
 
-            forecastCard.attr("class", "bg-primary p-2")
+            forecastCard.attr("class", "bg-primary pt-0 me-2")
           }
         })
-    
-  
-
-
   }
 
 
@@ -176,7 +160,7 @@ fetchButton.on("click", function(event){
   searchHistory.text(city)
   searchHistoryDiv.append(searchHistory)
   console.log(searchHistory)
-  searchHistory.attr("class", "col-12")
+  searchHistory.attr("class", "col-8")
   // copied logic from retrieve cities function, removed calling it in here
   // to fix the repetition of buttons 
   // at the end of the button's event listener function we need to append the newly searched city to the search history element
@@ -185,12 +169,11 @@ fetchButton.on("click", function(event){
   // However, we do not want that to happen every single time you click the search button, you only want it to happen on page load
   // There is no need to do it after page load, because that will cause duplicates
 
-  
-
 
 });
 
 function retrieveCities() {
+
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
   // localStorageCitiesArr.forEach(function(city) {
@@ -200,20 +183,23 @@ function retrieveCities() {
       var searchHistory = $("<button>")
       searchHistory.text(localStorageCitiesArr[i])
       searchHistoryDiv.append(searchHistory)
-      searchHistory.attr("class", "col-12")
+      searchHistory.attr("class", "col-8")
 
       searchHistory.on("click", function(event){
         event.preventDefault();
     
-        //  // Clear content when button is pressed again
+        //  Clear content when button is pressed again
         temperatureInfo.html(" ");
         fiveDayForecast.html(" ");
         titleForecast.html(" ");
       
-    
-        var searchHistory = $(this).val();
-        console.log(searchHistory)
-        console.log("hello")
+        
+        console.log(event.target.innerHTML);
+        var searchHistory = event.target.innerHTML;
+
+        // var searchHistory = $(this).html();
+        // console.log(searchHistory)
+        // console.log("hello")
     
         getApi(searchHistory);
         forecast(searchHistory);
@@ -223,25 +209,15 @@ function retrieveCities() {
 
     console.log(searchHistory)
 
-  
-    
-    
-  // });
-  
-// whats the value
-  // }
-
 };
 
 retrieveCities();
 
 
-// icon not showing every day 
-
 
 // https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
 
 
-// Your logic with the forEach looks good on page initialization. So it creates all the buttons, hence why it looks correct when we refresh.
+// logic with the forEach looks good on page initialization. So it creates all the buttons, hence why it looks correct when we refresh.
 
 // but if we remove the for each for the function logic, and just access the last index of the array using [array.length -1] we can use the function I posted to add in order.

@@ -20,3 +20,7 @@
 #fiveDayForecast {
   justify-content: space-around !important;
 }
+
+#fiveDayForecast {
+  margin-right: 20px !important;
+}

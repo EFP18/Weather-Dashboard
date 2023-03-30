@@ -44,34 +44,38 @@
         <input type="text" id="city" name="city" placeholder="New York"><br><br>
         <input type="submit" value="Search" id="fetch-button">
       </form> -->
-      <div class = "row">
-        <div class="card-body-custom card-body col-3 ps-5">
-          <h5 class="searchCity card-title fs-1">Search for a City:</h5>
-          <input type="text" id="city" name="city" placeholder="New York"><br><br>
+      <section class="container">
+        <div class = "row">
+          <div class="card-body-custom card-body col-4">
+            <h5 class="searchCity card-title fs-1">Search for a City:</h5>
+            <input type="text" id="city" name="city" placeholder="New York"><br><br>
 
-          <!-- media query to align center when smaller screen -->
-          <button type="button" class="btn btn-primary fs-3" id="fetch-button">Search</button>
+            <!-- media query to align center when smaller screen -->
+            <button type="button" class="btn btn-primary fs-3" id="fetch-button">Search</button>
+          </div>
+
+          <div id="temperatureInfo" class = "col-8 border border-primary">
+            <img id="imgIdTop" src="" alt="Weather icon">
+
+          </div>
         </div>
+      </section>
 
-        <div id="temperatureInfo" class = "col-6 border border-primary me-5">
-          <img id="imgIdTop" src="" alt="Weather icon">
+      <section class="container">
+        <div class = "row mt-2">
+          <div class="col-4 " id="searchHistory"></div>
 
-        </div>
-      </div>
-
-      <div class = "row mt-5">
-        <div class="col-3 ps-5 me-5" id="searchHistory"></div>
-
-          <div class="col-6 border border-primary me-5 ms-5">
-            <div id="title-forecast" class = "text-center py-5"></div>
-            <div id="fiveDayForecast" class="">
-              <div id="iconWeather"> 
-                <img id="imgId" src="" alt="Weather icon">
+            <div class="col-8 border border-primary ">
+              <div id="title-forecast" class = "text-center"></div>
+              <div id="fiveDayForecast" class="justify-content-between">
+                <div id="iconWeather"> 
+                  <img id="imgId" src="" alt="Weather icon">
+                </div>
               </div>
-            </div>
-        
-          </div> 
-      </div>
+          
+            </div> 
+        </div>
+      </section>
 
   </section>
 
