@@ -67,15 +67,14 @@ function getApi(city){
 
         // Weather icons
         // var iconOnScreen = $("<p>")
+        var iconTop = $("<p>")
         var imgIdTop = $("#imgIdTop")
         var icon = data.list[i].weather[0].icon
         var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
         $('#imgIdTop').attr('src', iconUrl);
-        cityName.append(imgIdTop)
+        iconTop.text(imgIdTop)
+        cityName.append(iconTop)
             
-
-          
-            console.log(iconUrl)
 
       }
       
@@ -116,12 +115,14 @@ function getApi(city){
           
 
             // Weather Icons
-            var iconWeather = $("#iconWeather")
+            var iconForecast = $("<p>")
             var imgId = $("#imgId")
 
             var icon = data.list[i].weather[0].icon
             var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
             $("#imgId").attr("src", iconUrl);
+            iconForecast.text(imgId)
+            
 
 
             var forecastCard = $("<div>").addClass("cardStyle")
@@ -136,13 +137,15 @@ function getApi(city){
             // icon.text(data.list[i].weather[0].icon)
             
             // append dynamically generated html to the screen
-            forecastCard.append(dateTemp, temperature, wind, humidity, icon, iconWeather)
+            forecastCard.append(dateTemp, iconForecast, temperature, wind, humidity)
             fiveDayForecast.append(forecastCard)
 
             forecastCard.attr("class", "bg-primary p-2")
           }
         })
+    
   
+
 
   }
 
@@ -160,6 +163,8 @@ fetchButton.on("click", function(event){
   getApi(city);
   forecast(city);
 
+
+  
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
   localStorageCitiesArr.push(city);
@@ -168,26 +173,48 @@ fetchButton.on("click", function(event){
 
   retrieveCities();
 
+    
+    
+
 });
 
 function retrieveCities() {
   var localStorageCitiesArr = JSON.parse(localStorage.getItem("citiesArr")) || []; 
 
   localStorageCitiesArr.forEach(function(city) {
-    console.log(city);
+    // Search History Div
+    var searchHistoryDiv = $("#searchHistory")
+    // for (var i=0; i<localStorageCitiesArr.length; i++){
+    var searchHistory = $("<button>")
+    searchHistory.text(city)
+    searchHistoryDiv.append(searchHistory)
+
+    searchHistory.on("click", function(event){
+    event.preventDefault();
+
+     // Clear content when button is pressed again
+    temperatureInfo.html(" ");
+    fiveDayForecast.html(" ");
+    titleForecast.html(" ")
+  
+    // var city = $("#city").val();
+
+    var searchHistory = searchHistory.val();
+
+    getApi(searchHistory);
+    forecast(searchHistory);
+    })
   });
+  
+// getting button multiple times
+// whats the value
+  // }
 
 };
 
 retrieveCities();
 
-// On click, save the city value on local storage
-// create buttons that they can click
-// event listener on those buttons that lead to the beginning of the other function
-// as if the input was that city 
 
-
-// local storage????
 // icon not showing every day 
 
 
