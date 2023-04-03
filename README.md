@@ -9,3 +9,5 @@ Additionally, with the help of local storage the website then saves the past sea
 As an add-on, I put the time and date on the nav-bar.
 
 
+Helpful links: 
+https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys

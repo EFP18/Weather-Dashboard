@@ -5,7 +5,7 @@ var fetchButton = $("#fetch-button")
 var temperatureInfo = $("#temperatureInfo")
 var fiveDayForecast = $("#fiveDayForecast")
 var titleForecast = $("#title-forecast")
-
+var city = "Athens"
 
 function displayTime(){
   var today = dayjs();
@@ -118,7 +118,8 @@ function getApi(city){
             forecastCard.append(dateTemp, iconForecast, temperature, wind, humidity)
             fiveDayForecast.append(forecastCard)
 
-            forecastCard.attr("class", "bg-primary pt-0 me-2")
+            forecastCard.attr("class", "pt-0 me-2 ms-2")
+
           }
         })
   }
@@ -148,6 +149,27 @@ fetchButton.on("click", function(event){
   var searchHistoryDiv = $("#searchHistory")
   var searchHistory = $("<button>")
   searchHistory.text(city)
+
+  searchHistory.on("click", function(event){
+    event.preventDefault();
+
+    //  Clear content when button is pressed again
+    temperatureInfo.html(" ");
+    fiveDayForecast.html(" ");
+    titleForecast.html(" ");
+  
+    
+    console.log(event.target.innerHTML);
+    var searchHistory = event.target.innerHTML;
+
+    // var searchHistory = $(this).html();
+    // console.log(searchHistory)
+    // console.log("hello")
+
+    getApi(searchHistory);
+    forecast(searchHistory);
+    })
+
   searchHistoryDiv.append(searchHistory)
   console.log(searchHistory)
   searchHistory.attr("class", "col-8")
@@ -158,6 +180,7 @@ fetchButton.on("click", function(event){
   // The issue with this is that retrieveCities is currently being used to populate the search history with the local storage data
   // However, we do not want that to happen every single time you click the search button, you only want it to happen on page load
   // There is no need to do it after page load, because that will cause duplicates
+
 
 
 });
@@ -202,12 +225,14 @@ function retrieveCities() {
 };
 
 retrieveCities();
+getApi(city);
+forecast(city);
 
+// TODO and check why I need to reload for history to be clicked
 
-
-// https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
 
 
 // logic with the forEach looks good on page initialization. So it creates all the buttons, hence why it looks correct when we refresh.
+
 
 // but if we remove the for each for the function logic, and just access the last index of the array using [array.length -1] we can use the function I posted to add in order.

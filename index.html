@@ -15,6 +15,7 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./Assets/style.css">
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
       integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
@@ -24,7 +25,7 @@
 <body>
 
   <!-- initial page without the city selected -->
-<nav class= "sticky-top bg-primary py-4 text-center ">
+<nav class= "sticky-top py-4 text-center" id="custom-nav-bar">
   <h1 class = "fs-1 navbar-brand" href="/">
     Weather Dashboard
     <div class = "logo-image" style="display: inline">
@@ -39,23 +40,16 @@
 
   <section class="mt-4" id="main"> 
       <!-- (thats my fetch button) -->
-      <!-- <form action="/action_page.php">
-        <label for="city">Search for a City:</label><br>
-        <input type="text" id="city" name="city" placeholder="New York"><br><br>
-        <input type="submit" value="Search" id="fetch-button">
-      </form> -->
       <section class="container">
         <div class = "row">
-          <div class="card-body-custom card-body col-4">
+          <div class="card-body-custom card-body col-3 me-3">
             <h5 class="searchCity card-title fs-1">Search for a City:</h5>
             <input type="text" id="city" name="city" placeholder="New York"><br><br>
 
-            <!-- media query to align center when smaller screen -->
             <button type="button" class="btn btn-primary fs-3" id="fetch-button">Search</button>
           </div>
 
           <div id="temperatureInfo" class = "col-8 border border-primary">
-            <img id="imgIdTop" src="" alt="Weather icon">
 
           </div>
         </div>
@@ -63,14 +57,12 @@
 
       <section class="container">
         <div class = "row mt-2">
-          <div class="col-4 " id="searchHistory"></div>
+          <div class="col-4" id="searchHistory"></div>
 
             <div class="col-8 border border-primary ">
               <div id="title-forecast" class = "text-center"></div>
               <div id="fiveDayForecast" class="justify-content-between">
-                <div id="iconWeather"> 
-                  <img id="imgId" src="" alt="Weather icon">
-                </div>
+                <div id="iconWeather"></div>
               </div>
           
             </div> 

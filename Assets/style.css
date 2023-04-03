@@ -1,4 +1,4 @@
-@media screen and (max-width: 586px){ 
+@media screen and (max-width: 600px){ 
   .card-body-custom{  
     display: flex !important;
     flex-wrap: wrap !important;
@@ -19,8 +19,13 @@
 
 #fiveDayForecast {
   justify-content: space-around !important;
+  margin-right: 20px !important;
+
 }
 
-#fiveDayForecast {
-  margin-right: 20px !important;
+
+#custom-nav-bar, #temperatureInfo, #fiveDayForecast {
+  background: rgb(2,0,36) !important;
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,68,121,1) 35%, rgba(0,212,255,1) 100%) !important; 
+  color:white;
 }
